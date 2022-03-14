@@ -336,10 +336,10 @@
             <section
             id="try-it-now"
                           >
-              <form action="#">
+              <form id="tz-form" action="#">
                 <div class="mb-6">
                   Longitude: <input
-                    id="tz-long" type="number" step="0.00001" name="long" pattern="[\d\.]+" required
+                    id="tz-long" type="number" step="0.00001" min="-179" max="179" name="long" pattern="[\d\.]+" required
                     placeholder="Longitude"
                     class="
                       rounded-md
@@ -359,7 +359,7 @@
                 </div>
                 <div class="mb-6">
                   Latitude: <input
-                  id="tz-lat" type="number" step="0.00001" name="lat" pattern="[\d\.]+" required
+                  id="tz-lat" type="number" step="0.00001" min="-89" max="89"  name="lat" pattern="[\d\.]+" required
                   placeholder="Latitude"
                     class="
                       rounded-md
@@ -1934,11 +1934,15 @@
       const formSubmitElement = document.querySelector('#get-tz')
       formSubmitElement.onclick = async function onclick(event) {
         event.preventDefault()
-        const latEle = document.querySelector('#tz-lat')
-        const longEle = document.querySelector('#tz-long')
-        let timing = await checkResponseTime('https://timezonesapi.com/lookup/?lat='+latEle.value+'&long='+longEle.value)
-        timing = parseInt(timing)
-        updateResultTiming(timing)
+        const formEle = document.querySelector('#tz-form')
+        formEle.reportValidity()
+        if(formEle.checkValidity()) {
+          const latEle = document.querySelector('#tz-lat')
+          const longEle = document.querySelector('#tz-long')
+          let timing = await checkResponseTime('https://timezonesapi.com/lookup/?lat='+latEle.value+'&long='+longEle.value)
+          timing = parseInt(timing)
+          updateResultTiming(timing)
+        }
       }
 
 
