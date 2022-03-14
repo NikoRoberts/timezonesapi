@@ -1,20 +1,1541 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
   <head>
-    <meta charset="utf8" />
-    <title>Time Zone API</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link href="main.css" rel="stylesheet" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      A highly available API for lat/long to time zone conversion
+    </title>
+    <link
+      rel="shortcut icon"
+      href="assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="assets/css/animate.css" />
+    <link rel="stylesheet" href="assets/css/tailwind.css" />
+
+    <!-- ==== WOW JS ==== -->
+    <script src="assets/js/wow.min.js"></script>
+    <script>
+      new WOW().init();
+
+      function getTimeZone(lat, long) {
+        fetch('https://timezonesapi.com/lookup/?lat='+lat+'&long='+long)
+          .then(response => response.json())
+          .then(data => console.log(data))
+      }
+    </script>
   </head>
   <body>
-    <form method="GET" action="https://timezonesapi.com/lookup/">
-      <label for="long">Longitude</label>
-      <input id="long" type="number" step="0.00001" name="long" pattern="[\d\.]+" required />
+    <!-- ====== Navbar Section Start -->
+    <div
+      class="
+        ud-header
+        bg-transparent
+        absolute
+        top-0
+        left-0
+        z-40
+        w-full
+        flex
+        items-center
+      "
+    >
+      <div class="container">
+        <div class="flex -mx-4 items-center justify-between relative">
+          <div class="px-4 w-60 max-w-full">
+            <a href="index.html" class="navbar-logo w-full block py-5">
+              <img
+                src="assets/images/logo/logo-white.png"
+                alt="logo"
+                class="header-logo max-width-[80px]"
+                width="60"
+              />
+            </a>
+          </div>
+          <div class="flex px-4 justify-between items-center w-full">
+            <div>
+              <button
+                id="navbarToggler"
+                class="
+                  block
+                  absolute
+                  right-4
+                  top-1/2
+                  -translate-y-1/2
+                  lg:hidden
+                  focus:ring-2
+                  ring-primary
+                  px-3
+                  py-[6px]
+                  rounded-lg
+                "
+              >
+                <span
+                  class="relative w-[30px] h-[2px] my-[6px] block bg-white"
+                ></span>
+                <span
+                  class="relative w-[30px] h-[2px] my-[6px] block bg-white"
+                ></span>
+                <span
+                  class="relative w-[30px] h-[2px] my-[6px] block bg-white"
+                ></span>
+              </button>
+              <nav
+                id="navbarCollapse"
+                class="
+                  absolute
+                  py-5
+                  lg:py-0 lg:px-4
+                  xl:px-6
+                  bg-white
+                  lg:bg-transparent
+                  shadow-lg
+                  rounded-lg
+                  max-w-[250px]
+                  w-full
+                  lg:max-w-full lg:w-full
+                  right-4
+                  top-full
+                  hidden
+                  lg:block lg:static lg:shadow-none
+                "
+              >
+                <ul class="blcok lg:flex">
+                  <li class="relative group">
+                    <a
+                      href="#home"
+                      class="
+                        ud-menu-scroll
+                        text-base text-dark
+                        lg:text-white
+                        lg:group-hover:opacity-70
+                        lg:group-hover:text-white
+                        group-hover:text-primary
+                        py-2
+                        lg:py-6 lg:inline-flex lg:px-0
+                        flex
+                        mx-8
+                        lg:mr-0
+                      "
+                    >
+                      Home
+                    </a>
+                  </li>
+                  <li class="relative group">
+                    <a
+                      href="#about"
+                      class="
+                        ud-menu-scroll
+                        text-base text-dark
+                        lg:text-white
+                        lg:group-hover:opacity-70
+                        lg:group-hover:text-white
+                        group-hover:text-primary
+                        py-2
+                        lg:py-6 lg:inline-flex lg:px-0
+                        flex
+                        mx-8
+                        lg:mr-0 lg:ml-7
+                        xl:ml-12
+                      "
+                    >
+                      About
+                    </a>
+                  </li>
+                  <li class="relative group">
+                    <a
+                      href="#docs"
+                      class="
+                        ud-menu-scroll
+                        text-base text-dark
+                        lg:text-white
+                        lg:group-hover:opacity-70
+                        lg:group-hover:text-white
+                        group-hover:text-primary
+                        py-2
+                        lg:py-6 lg:inline-flex lg:px-0
+                        flex
+                        mx-8
+                        lg:mr-0 lg:ml-7
+                        xl:ml-12
+                      "
+                    >
+                      Docs
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div class="sm:flex justify-end hidden pr-16 lg:pr-0">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ====== Navbar Section End -->
+
+    <!-- ====== Hero Section Start -->
+    <div
+      id="home"
+      class="relative pt-[120px] md:pt-[130px] lg:pt-[160px] bg-primary"
+    >
+      <div class="container">
+        <div class="flex flex-wrap items-center -mx-4">
+          <div class="w-full px-4">
+            <div
+              class="
+                hero-content
+                text-center
+                max-w-[780px]
+                mx-auto
+                wow
+                fadeInUp
+              "
+              data-wow-delay=".2s"
+            >
+              <h1
+                class="
+                  text-white
+                  font-bold
+                  text-3xl
+                  sm:text-4xl
+                  md:text-[45px]
+                  leading-snug
+                  sm:leading-snug
+                  md:leading-snug
+                  mb-8
+                "
+              >
+                A highly available API for lat/long to time zone conversion
+              </h1>
+              <p
+                class="
+                  text-base
+                  sm:text-lg sm:leading-relaxed
+                  md:text-xl md:leading-relaxed
+                  mx-auto
+                  mb-10
+                  text-[#e4e4e4]
+                  max-w-[600px]
+                "
+              >
+                Built on Cloudflare Workers running on the Cloudflare Edge network, using GEOJSON time zone data.
+              </p>
+              <ul class="flex flex-wrap items-center justify-center mb-10">
+                <li>
+                  <a
+                    href="#try-it-now"
+                    class="
+                      py-4
+                      px-6
+                      sm:px-10
+                      inline-flex
+                      items-center
+                      justify-center
+                      text-center text-dark text-base
+                      bg-white
+                      hover:text-primary hover:shadow-lg
+                      font-medium
+                      rounded-lg
+                      transition
+                      duration-300
+                      ease-in-out
+                    "
+                  >
+                    Try It Now
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/nikoroberts/timezonesapi"
+                    target="_blank"
+                    class="
+                      text-base
+                      font-medium
+                      text-white
+                      py-4
+                      px-6
+                      sm:px-10
+                      flex
+                      items-center
+                      hover:opacity-70
+                      transition
+                      duration-300
+                      ease-in-out
+                    "
+                  >
+                    Star on Github
+                    <span class="pl-2">
+                      <svg
+                        width="20"
+                        height="8"
+                        viewBox="0 0 20 8"
+                        class="fill-current"
+                      >
+                        <path
+                          d="M19.2188 2.90632L17.0625 0.343819C16.875 0.125069 16.5312 0.0938193 16.2812 0.281319C16.0625 0.468819 16.0312 0.812569 16.2188 1.06257L18.25 3.46882H0.9375C0.625 3.46882 0.375 3.71882 0.375 4.03132C0.375 4.34382 0.625 4.59382 0.9375 4.59382H18.25L16.2188 7.00007C16.0312 7.21882 16.0625 7.56257 16.2812 7.78132C16.375 7.87507 16.5 7.90632 16.625 7.90632C16.7812 7.90632 16.9375 7.84382 17.0312 7.71882L19.1875 5.15632C19.75 4.46882 19.75 3.53132 19.2188 2.90632Z"
+                        />
+                      </svg>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="w-full px-4">
+            <div
+              class="mx-auto max-w-[845px] relative z-10 wow fadeInUp"
+              data-wow-delay=".25s"
+            >
+              <div class="mt-16">
+
+            <div
+              class="
+                max-w-[525px]
+                mx-auto
+                text-center
+                bg-white
+                rounded-lg
+                relative
+                overflow-hidden
+                py-14
+                px-8
+                sm:px-12
+                md:px-[60px]
+                wow
+                fadeInUp
+              "
+              data-wow-delay=".15s"
+            >
+            <section
+            id="try-it-now"
+                          >
+              <form action="#">
+                <div class="mb-6">
+                  Longitude: <input
+                    id="tz-long" type="number" step="0.00001" name="long" pattern="[\d\.]+" required
+                    placeholder="Longitude"
+                    class="
+                      rounded-md
+                      border
+                      bordder-[#E9EDF4]
+                      py-3
+                      px-5
+                      bg-[#FCFDFE]
+                      text-base text-body-color
+                      placeholder-[#ACB6BE]
+                      outline-none
+                      focus-visible:shadow-none
+                      focus:border-primary
+                      transition
+                    "
+                  />
+                </div>
+                <div class="mb-6">
+                  Latitude: <input
+                  id="tz-lat" type="number" step="0.00001" name="lat" pattern="[\d\.]+" required
+                  placeholder="Latitude"
+                    class="
+                      rounded-md
+                      border
+                      bordder-[#E9EDF4]
+                      py-3
+                      px-5
+                      bg-[#FCFDFE]
+                      text-base text-body-color
+                      placeholder-[#ACB6BE]
+                      outline-none
+                      focus-visible:shadow-none
+                      focus:border-primary
+                      transition
+                    "
+                  />
+                </div>
+                <div class="mb-10">
+                  <input
+                    id="get-tz"
+                    type="submit"
+                    value="Get Time Zone"
+                    class="
+                      w-full
+                      rounded-md
+                      border
+                      bordder-primary
+                      py-3
+                      px-5
+                      bg-primary
+                      text-base text-white
+                      cursor-pointer
+                      hover:shadow-md
+                      transition
+                      duration-300
+                      ease-in-out
+                    "
+                  />
+                </div>
+              </form>
+              <div class="mb-10">
+                    <div id="tz-result-zone" class="wd-full"></div>
+                    <div id="tz-result-timing" class="wd-full"></div>
+
+            </section>
+            </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ====== Hero Section End -->
 
 
-      <label for="lat">Latitude</label>
-      <input id="lat" type="number" step="0.00001" name="lat" pattern="[\d\.]+" required />
 
-      <button type="submit">Submit</button>
-    </form>
+    <!-- ====== About Section Start -->
+    <section
+      id="about"
+      class="pt-20 lg:pt-[120px] pb-20 lg:pb-[120px] bg-[#f3f4fe]"
+    >
+      <div class="container">
+        <div class="bg-white wow fadeInUp" data-wow-delay=".2s">
+          <div class="flex flex-wrap -mx-4">
+            <div class="w-full px-4">
+              <div
+                class="
+                  lg:flex
+                  items-center
+                  justify-between
+                  border
+                  overflow-hidden
+                "
+              >
+                <div
+                  class="
+                    lg:max-w-[565px]
+                    xl:max-w-[640px]
+                    w-full
+                    py-12
+                    px-7
+                    sm:px-12
+                    md:p-16
+                    lg:py-9 lg:px-16
+                    xl:p-[70px]
+                  "
+                >
+                  <span
+                    class="
+                      text-sm
+                      font-medium
+                      text-white
+                      py-2
+                      px-5
+                      bg-primary
+                      inline-block
+                      mb-5
+                    "
+                  >
+                    About
+                  </span>
+                  <h2
+                    class="
+                      font-bold
+                      text-3xl
+                      sm:text-4xl
+                      2xl:text-[40px]
+                      sm:leading-snug
+                      text-dark
+                      mb-6
+                    "
+                  >
+                    Fast API built on the Cloud
+                  </h2>
+                  <p class="text-base text-body-color mb-9 leading-relaxed">
+                    Everything for this API is hosted by Cloudflare. Using Pages, Workers and KV store, the webpage and API use as much as possible from Cloudflare's worldwide infrastructure to minimise latency.
+                  </p>
+                  <p class="text-base text-body-color mb-9 leading-relaxed">
+                    Cloudflare's Edge nodes exist on almost every continent (sorry Antarticans!), so the latency because you and the time zone results are purely the time to calculate the result and your network.
+                  </p>
+                </div>
+                <div class="text-center
+                            lg:max-w-[565px]
+                            xl:max-w-[640px]
+                            w-full
+                            py-12
+                            px-7
+                            sm:px-12
+                            md:p-16
+                            lg:py-9 lg:px-16
+                            xl:p-[70px]
+                          ">
+                  <div class="relative z-10 wd-full">
+                    <img
+                      src="assets/images/about/about-image.svg"
+                      alt="image"
+                      width="100%"
+                      class="mx-auto lg:ml-auto"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ====== About Section End -->
+
+
+    <!-- ====== Team Section Start -->
+    <section id="team" class="pt-20 lg:pt-[120px] pb-10 lg:pb-20">
+      <div class="container">
+        <div class="flex flex-wrap -mx-4">
+          <div class="w-full px-4">
+            <div class="text-center mx-auto mb-[60px] max-w-[620px]">
+
+              <h2
+                class="
+                  font-bold
+                  text-3xl
+                  sm:text-4xl
+                  md:text-[42px]
+                  text-dark
+                  mb-4
+                "
+              >
+                Meet The Creators
+              </h2>
+              <p
+                class="
+                  text-lg
+                  sm:text-xl
+                  leading-relaxed
+                  sm:leading-relaxed
+                  text-body-color
+                "
+              >
+                These are the volunteers who have contributed to building out this API
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap justify-center -mx-4">
+          <div class="w-full sm:w-1/2 lg:w-1/4 px-4">
+            <div class="mb-10 wow fadeInUp" data-wow-delay=".1s">
+              <div
+                class="
+                  relative
+                  w-[170px]
+                  h-170px]
+                  rounded-full
+                  z-10
+                  mx-auto
+                  mb-6
+                "
+              >
+
+              </div>
+            </div>
+          </div>
+          <div class="w-full sm:w-1/2 lg:w-1/4 px-4">
+            <div class="mb-10 wow fadeInUp" data-wow-delay=".15s">
+              <div
+                class="
+                  relative
+                  w-[170px]
+                  h-170px]
+                  rounded-full
+                  z-10
+                  mx-auto
+                  mb-6
+                "
+              >
+                <img
+                  src="assets/images/team/team-01.png"
+                  alt="image"
+                  class="w-full rounded-full"
+                />
+                <span class="absolute top-0 left-0 z-[-1]">
+                  <svg
+                    width="71"
+                    height="82"
+                    viewBox="0 0 71 82"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="1.29337"
+                      cy="80.7066"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 80.7066)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="80.7066"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 80.7066)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="80.7066"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 80.7066)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="80.7066"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 80.7066)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="80.7066"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 80.7066)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="80.7066"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 80.7066)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9443"
+                      cy="80.7066"
+                      r="1.29337"
+                      transform="rotate(-90 57.9443 80.7066)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="1.29337"
+                      cy="69.3249"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 69.3249)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="69.3249"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 69.3249)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="69.3249"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 69.3249)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="69.3249"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 69.3249)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="69.325"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 69.325)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="69.325"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 69.325)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9433"
+                      cy="69.325"
+                      r="1.29337"
+                      transform="rotate(-90 57.9433 69.325)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="1.29337"
+                      cy="57.9433"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 57.9433)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="1.29337"
+                      cy="24.0568"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 24.0568)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="57.9433"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 57.9433)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="24.0568"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 24.0568)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="57.9433"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 57.9433)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="24.0568"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 24.0568)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="57.9433"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 57.9433)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="24.0568"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 24.0568)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="57.9431"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 57.9431)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="24.0567"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 24.0567)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="57.9431"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 57.9431)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="24.0567"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 24.0567)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9433"
+                      cy="57.9431"
+                      r="1.29337"
+                      transform="rotate(-90 57.9433 57.9431)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9443"
+                      cy="24.0567"
+                      r="1.29337"
+                      transform="rotate(-90 57.9443 24.0567)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="1.29337"
+                      cy="46.5615"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 46.5615)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="1.29337"
+                      cy="12.6751"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 12.6751)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="46.5615"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 46.5615)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="12.6751"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 12.6751)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="46.5615"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 46.5615)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="12.6751"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 12.6751)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="46.5615"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 46.5615)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="12.6751"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 12.6751)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="46.5615"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 46.5615)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="12.6751"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 12.6751)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="46.5615"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 46.5615)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="12.6751"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 12.6751)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9433"
+                      cy="46.5615"
+                      r="1.29337"
+                      transform="rotate(-90 57.9433 46.5615)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9443"
+                      cy="12.6751"
+                      r="1.29337"
+                      transform="rotate(-90 57.9443 12.6751)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="1.29337"
+                      cy="35.1798"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 35.1798)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="1.29337"
+                      cy="1.2933"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 1.2933)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="35.1798"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 35.1798)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="1.2933"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 1.2933)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="35.1798"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 35.1798)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="1.29336"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 1.29336)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="35.1798"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 35.1798)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="1.29336"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 1.29336)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="35.18"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 35.18)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="1.29354"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 1.29354)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="35.18"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 35.18)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="1.29354"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 1.29354)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9443"
+                      cy="35.18"
+                      r="1.29337"
+                      transform="rotate(-90 57.9443 35.18)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9443"
+                      cy="1.29354"
+                      r="1.29337"
+                      transform="rotate(-90 57.9443 1.29354)"
+                      fill="#3056D3"
+                    />
+                  </svg>
+                </span>
+
+              </div>
+              <div class="text-center">
+                <a href="https://www.linkedin.com/in/vascoorey/">
+                <h4 class="font-medium text-lg text-dark mb-2">Vasco Orey</h4>
+                <p class="font-medium text-sm text-body-color mb-5">
+                  Engineer
+                </p>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="w-full sm:w-1/2 lg:w-1/4 px-4">
+            <div class="mb-10 wow fadeInUp" data-wow-delay=".2s">
+              <div
+                class="
+                  relative
+                  w-[170px]
+                  h-170px]
+                  rounded-full
+                  z-10
+                  mx-auto
+                  mb-6
+                "
+              >
+                <img
+                  src="assets/images/team/team-02.png"
+                  alt="image"
+                  class="w-full rounded-full"
+                />
+                <span class="absolute top-0 left-0 z-[-1]">
+                  <svg
+                    width="71"
+                    height="82"
+                    viewBox="0 0 71 82"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="1.29337"
+                      cy="80.7066"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 80.7066)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="80.7066"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 80.7066)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="80.7066"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 80.7066)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="80.7066"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 80.7066)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="80.7066"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 80.7066)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="80.7066"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 80.7066)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9443"
+                      cy="80.7066"
+                      r="1.29337"
+                      transform="rotate(-90 57.9443 80.7066)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="1.29337"
+                      cy="69.3249"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 69.3249)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="69.3249"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 69.3249)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="69.3249"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 69.3249)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="69.3249"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 69.3249)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="69.325"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 69.325)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="69.325"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 69.325)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9433"
+                      cy="69.325"
+                      r="1.29337"
+                      transform="rotate(-90 57.9433 69.325)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="1.29337"
+                      cy="57.9433"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 57.9433)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="1.29337"
+                      cy="24.0568"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 24.0568)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="57.9433"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 57.9433)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="24.0568"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 24.0568)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="57.9433"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 57.9433)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="24.0568"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 24.0568)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="57.9433"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 57.9433)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="24.0568"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 24.0568)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="57.9431"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 57.9431)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="24.0567"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 24.0567)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="57.9431"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 57.9431)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="24.0567"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 24.0567)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9433"
+                      cy="57.9431"
+                      r="1.29337"
+                      transform="rotate(-90 57.9433 57.9431)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9443"
+                      cy="24.0567"
+                      r="1.29337"
+                      transform="rotate(-90 57.9443 24.0567)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="1.29337"
+                      cy="46.5615"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 46.5615)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="1.29337"
+                      cy="12.6751"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 12.6751)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="46.5615"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 46.5615)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="12.6751"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 12.6751)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="46.5615"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 46.5615)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="12.6751"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 12.6751)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="46.5615"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 46.5615)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="12.6751"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 12.6751)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="46.5615"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 46.5615)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="12.6751"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 12.6751)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="46.5615"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 46.5615)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="12.6751"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 12.6751)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9433"
+                      cy="46.5615"
+                      r="1.29337"
+                      transform="rotate(-90 57.9433 46.5615)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9443"
+                      cy="12.6751"
+                      r="1.29337"
+                      transform="rotate(-90 57.9443 12.6751)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="1.29337"
+                      cy="35.1798"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 35.1798)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="1.29337"
+                      cy="1.2933"
+                      r="1.29337"
+                      transform="rotate(-90 1.29337 1.2933)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="35.1798"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 35.1798)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="12.6747"
+                      cy="1.2933"
+                      r="1.29337"
+                      transform="rotate(-90 12.6747 1.2933)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="35.1798"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 35.1798)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="24.0575"
+                      cy="1.29336"
+                      r="1.29337"
+                      transform="rotate(-90 24.0575 1.29336)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="35.1798"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 35.1798)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="35.4379"
+                      cy="1.29336"
+                      r="1.29337"
+                      transform="rotate(-90 35.4379 1.29336)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="35.18"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 35.18)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="46.8197"
+                      cy="1.29354"
+                      r="1.29337"
+                      transform="rotate(-90 46.8197 1.29354)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="35.18"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 35.18)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="68.807"
+                      cy="1.29354"
+                      r="1.29337"
+                      transform="rotate(-90 68.807 1.29354)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9443"
+                      cy="35.18"
+                      r="1.29337"
+                      transform="rotate(-90 57.9443 35.18)"
+                      fill="#3056D3"
+                    />
+                    <circle
+                      cx="57.9443"
+                      cy="1.29354"
+                      r="1.29337"
+                      transform="rotate(-90 57.9443 1.29354)"
+                      fill="#3056D3"
+                    />
+                  </svg>
+                </span>
+                <span class="absolute right-0 bottom-0">
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21.5 21.5L0.505701 21.5C0.767606 10.023 10.023 0.767604 21.5 0.505697L21.5 21.5Z"
+                      stroke="#13C296"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <div class="text-center">
+                <a href="https://www.linkedin.com/in/nikoroberts/">
+                <h4 class="font-medium text-lg text-dark mb-2">
+                  Niko Roberts
+                </h4>
+                <p class="font-medium text-sm text-body-color mb-5">
+                  Engineer
+                </p>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="w-full sm:w-1/2 lg:w-1/4 px-4">
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ====== Team Section End -->
+
+
+    <!-- ====== Back To Top Start -->
+    <a
+      href="javascript:void(0)"
+      class="
+        hidden
+        items-center
+        justify-center
+        bg-primary
+        text-white
+        w-10
+        h-10
+        rounded-md
+        fixed
+        bottom-8
+        right-8
+        left-auto
+        z-[999]
+        hover:bg-dark
+        back-to-top
+        shadow-md
+        transition
+        duration-300
+        ease-in-out
+      "
+    >
+      <span
+        class="w-3 h-3 border-t border-l border-white rotate-45 mt-[6px]"
+      ></span>
+    </a>
+    <!-- ====== Back To Top End -->
+
+    <!-- ====== All Scripts -->
+
+    <script src="assets/js/main.js"></script>
+    <script>
+      // ==== for timezone getting
+      async function checkResponseTime(url) {
+        let time1 = performance.now();
+        await fetch(url)
+                    .then(response => response.json())
+                    .then(data => updateResultZone(data['zone']))
+        let time2 = performance.now();
+        let timing = time2 - time1;
+        return timing
+      }
+
+      function updateResultZone(zone) {
+        const resultElement = document.querySelector('#tz-result-zone')
+        resultElement.innerHTML = 'Result: '+zone
+      }
+
+      function updateResultTiming(timing) {
+        const resultElement = document.querySelector('#tz-result-timing')
+        resultElement.innerHTML = '<br>Timing: '+timing+'ms'
+      }
+
+      const formSubmitElement = document.querySelector('#get-tz')
+      formSubmitElement.onclick = async function onclick(event) {
+        event.preventDefault()
+        const latEle = document.querySelector('#tz-lat')
+        const longEle = document.querySelector('#tz-long')
+        let timing = await checkResponseTime('https://timezonesapi.com/lookup/?lat='+latEle.value+'&long='+longEle.value)
+        timing = parseInt(timing)
+        updateResultTiming(timing)
+      }
+
+
+      // ==== for menu scroll
+      const pageLink = document.querySelectorAll(".ud-menu-scroll");
+
+      pageLink.forEach((elem) => {
+        elem.addEventListener("click", (e) => {
+          e.preventDefault();
+          document.querySelector(elem.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+            offsetTop: 1 - 60,
+          });
+        });
+      });
+
+      // section menu active
+      function onScroll(event) {
+        const sections = document.querySelectorAll(".ud-menu-scroll");
+        const scrollPos =
+          window.pageYOffset ||
+          document.documentElement.scrollTop ||
+          document.body.scrollTop;
+
+        for (let i = 0; i < sections.length; i++) {
+          const currLink = sections[i];
+          const val = currLink.getAttribute("href");
+          const refElement = document.querySelector(val);
+          const scrollTopMinus = scrollPos + 73;
+          if (
+            refElement.offsetTop <= scrollTopMinus &&
+            refElement.offsetTop + refElement.offsetHeight > scrollTopMinus
+          ) {
+            document
+              .querySelector(".ud-menu-scroll")
+              .classList.remove("active");
+            currLink.classList.add("active");
+          } else {
+            currLink.classList.remove("active");
+          }
+        }
+      }
+
+      window.document.addEventListener("scroll", onScroll);
+    </script>
   </body>
 </html>
